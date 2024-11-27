@@ -20,10 +20,7 @@ def get_detalhes_ano(codigo_marca: str, codigo_modelo: str, codigo_ano: str, mes
 
 def get_tabelas() -> list[Tabela]:
     data = fetch_tabelas()
-    
-    
     tabelas = [Tabela(item) for item in data]
-    
     
     return tabelas
 

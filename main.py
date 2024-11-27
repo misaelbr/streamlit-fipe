@@ -8,7 +8,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
 # Título da Aplicação
 st.markdown("## Consulta de Preços da Tabela FIPE")
 st.markdown("Veja as cotações de veículos na Tabela FIPE e visualize a variação de preços nos últimos 6 meses")
@@ -48,12 +47,12 @@ ano = next(ano for ano in anos if ano.nome == ano_selecionado)
 # Etapa 5: Consulta e Exibição de Detalhes
 detalhes = get_detalhes_ano(marca.codigo, modelo.codigo, ano.codigo, tabela.codigo, veiculo.tipo)
 
-
 # Layout da Aplicação
 c1, c2 = st.columns([0.3, 0.5])
 
 # Exibir detalhes do veículo
-c1.markdown("### Informações do Veículo")
+c1.markdown("### Veículo avaliado")
+c1.markdown("")
 c1.markdown("<br />", unsafe_allow_html=True)
 c1.write(f"**Valor:** {detalhes.valor}")
 c1.write(f"**Marca:** {detalhes.marca}")
@@ -63,11 +62,15 @@ c1.write(f"**Combustível:** {detalhes.combustivel}")
 c1.write(f"**Código FIPE:** {detalhes.codigo_fipe}")
 c1.write(f"**Mês de Referência:** {detalhes.mes_referencia}")
 
-
 # Exibir gráfico de variação de preço
-c2.markdown("### Variação de Preço")
+c2.markdown("### Variação de preço")
 df_precos = get_variacao_preco(marca.codigo, modelo.codigo, ano.codigo, tabelas[:6], veiculo.tipo)
 
 if not df_precos.empty:
-    fig = px.line(df_precos, x="mes_referencia", y="preco")
+    labels= {
+        "mes_referencia": "Mês de referência (últimos 6 meses)",
+        "preco": "Preço (R$)"
+    }
+    
+    fig = px.line(df_precos, x="mes_referencia", y="preco", labels=labels)
     c2.plotly_chart(fig, use_container_width=True)

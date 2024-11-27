@@ -28,7 +28,6 @@ headers = {
     "X-Subscription-Token": os.getenv("API_KEY")
 }
 
-
 def fetch_with_cache(key: str, url: str, ttl: int = int(CACHE_EXPIRATION) * 24 * 7) -> dict:
     if key in cache:
         logger.info(f"Cache hit: {key}")
@@ -68,7 +67,6 @@ def fetch_detalhes_ano(codigo_marca: str, codigo_modelo: str, codigo_ano: str, m
     query = ""
     if mes_referencia is not None:
         query = f"?reference={mes_referencia}"
-        
     
     url=f"{API_URL}/{tipo_veiculo}/brands/{codigo_marca}/models/{codigo_modelo}/years/{codigo_ano}{query}"
     response = requests.get(url, headers=headers)
