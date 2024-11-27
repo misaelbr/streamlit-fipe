@@ -8,7 +8,8 @@ __pycache__/
 
 
 # cache
-data/cache/*
+data/cache/**
+!data/cache/.gitkeep
 
 # Distribution / packaging
 .Python
