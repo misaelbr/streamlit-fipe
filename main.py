@@ -2,11 +2,17 @@ import streamlit as st
 from app.repository import get_marcas, get_modelos, get_anos, get_detalhes_ano, get_tabelas, get_variacao_preco
 import plotly.express as px
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Consulta de Preços da Tabela FIPE",
+    page_icon="🚗",
+    layout="wide"
+)
 
 
 # Título da Aplicação
-st.title("Consulta de Preços da Tabela FIPE")
+st.markdown("## Consulta de Preços da Tabela FIPE")
+st.markdown("Veja as cotações de veículos na Tabela FIPE e visualize a variação de preços nos últimos 6 meses")
+st.markdown("<hr />", unsafe_allow_html=True)
 
 st.sidebar.header("Filtros")
 
@@ -42,7 +48,7 @@ detalhes = get_detalhes_ano(marca.codigo, modelo.codigo, ano.codigo, tabela.codi
 c1, c2 = st.columns([0.3, 0.5])
 
 # Exibir detalhes do veículo
-c1.subheader("Informações do Veículo")
+c1.markdown("### Informações do Veículo")
 c1.write(f"**Valor:** {detalhes.valor}")
 c1.write(f"**Marca:** {detalhes.marca}")
 c1.write(f"**Modelo:** {detalhes.modelo}")
@@ -53,9 +59,9 @@ c1.write(f"**Mês de Referência:** {detalhes.mes_referencia}")
 
 
 # Exibir gráfico de variação de preço
-c2.subheader("Variação de Preço")
-df_precos = get_variacao_preco(marca.codigo, modelo.codigo, ano.codigo, tabelas[:5])
+c2.markdown("### Variação de Preço")
+df_precos = get_variacao_preco(marca.codigo, modelo.codigo, ano.codigo, tabelas[:6])
 
 if not df_precos.empty:
-    fig = px.line(df_precos, x="mes_referencia", y="preco", title="Variação de Preço")
+    fig = px.line(df_precos, x="mes_referencia", y="preco")
     c2.plotly_chart(fig, use_container_width=True)
