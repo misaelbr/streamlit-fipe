@@ -1,4 +1,5 @@
-from typing import List, Dict
+from enum import Enum
+from typing import Dict
 
 # Modelos de Dados
 class Marca:
@@ -6,24 +7,24 @@ class Marca:
     nome: str
 
     def __init__(self, data: Dict[str, str]):
-        self.codigo = data["codigo"]
-        self.nome = data["nome"]
+        self.codigo = data["code"]
+        self.nome = data["name"]
 
 class Modelo:
     codigo: str
     nome: str
 
     def __init__(self, data: Dict[str, str]):
-        self.codigo = data["codigo"]
-        self.nome = data["nome"]
+        self.codigo = data["code"]
+        self.nome = data["name"]
 
 class Ano:
     codigo: str
     nome: str
 
     def __init__(self, data: Dict[str, str]):
-        self.codigo = data["codigo"]
-        self.nome = data["nome"]
+        self.codigo = data["code"]
+        self.nome = data["name"]
         
 class DetalhesVeiculo:
     tipo_veiculo: int
@@ -52,3 +53,11 @@ class Tabela:
     def __init__(self, data: Dict[str, str]):
         self.codigo = data["code"]
         self.mes = data["month"]
+        
+class TipoVeiculo:
+    tipo: str
+    descricao: str
+    
+    def __init__(self, data: Dict):
+        self.tipo = data["tipo"]
+        self.descricao = data["descricao"]
