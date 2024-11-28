@@ -58,6 +58,6 @@ class TipoVeiculo:
     tipo: str
     descricao: str
     
-    def __init__(self, data: Dict):
+    def __init__(self, data: Dict[str, str]):
         self.tipo = data["tipo"]
         self.descricao = data["descricao"]
