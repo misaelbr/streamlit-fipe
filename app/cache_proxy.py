@@ -53,7 +53,6 @@ def cache_revalidate():
         logger.error(f"Erro ao revalidar o cache: {e}", exc_info=True)
 
 def fetch_with_cache(key: str, url: str, ttl: int = int(CACHE_EXPIRATION) * 24 * 7) -> dict:
-
     try:
         cache_revalidate()
         
