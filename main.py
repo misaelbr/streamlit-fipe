@@ -13,7 +13,7 @@ st.markdown("## Consulta de Preços da Tabela FIPE")
 st.markdown("Veja as cotações de veículos na Tabela FIPE e visualize a variação de preços nos últimos 6 meses")
 st.markdown("<hr />", unsafe_allow_html=True)
 
-st.sidebar.header("Filtros")
+st.sidebar.header("Filtros", divider=True)
 
 # Etapa 1: Seleção da Tabela de Referência
 tabelas = get_tabelas()
@@ -48,7 +48,7 @@ ano = next(ano for ano in anos if ano.nome == ano_selecionado)
 detalhes = get_detalhes_ano(marca.codigo, modelo.codigo, ano.codigo, tabela.codigo, veiculo.tipo)
 
 # Layout da Aplicação
-c1, c2 = st.columns([0.3, 0.5])
+c1, c2 = st.columns([0.3, 0.5], vertical_alignment="top")
 
 # Exibir detalhes do veículo
 c1.markdown("### Veículo avaliado")
@@ -72,5 +72,5 @@ if not df_precos.empty:
         "preco": "Preço (R$)"
     }
     
-    fig = px.line(df_precos, x="mes_referencia", y="preco", labels=labels)
+    fig = px.line(df_precos, x="mes_referencia", y="preco", labels=labels, height=350)
     c2.plotly_chart(fig, use_container_width=True)
